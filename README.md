@@ -1,0 +1,12 @@
+Weather.ipynb:
+- Uses original dataset
+- Inspected for cleaning
+- Corrected obviously wrong values
+- Saved corrected dataset as pickle file
+- Implemented linear regression (first for just one city as a test, then for all cities)
+- Used Lasso and, in particular, Ridge Regression to handle multicollinearity issues
+- Evaluated and compared Ridge vs. Lasso: Ridge is better in prediction -> Ridge chosen (but Lasso would enable us to explain better, as it sets certain factor coefficients to zero)
+- Interesting discoveries in red font
+- Checked feature importance by using SHAP
+- Also tried Counterfactual Explanations by using SHAP
+- Explanations/reasons in orange font
