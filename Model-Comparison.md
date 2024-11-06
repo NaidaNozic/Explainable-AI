@@ -31,6 +31,16 @@ Overall, the **best results** are obtained with the model for **MUENCHEN**, with
 
 The model for **STOCKHOLM** has the **worst results**, with the Test MSE of 5.469 and the Test R² of 0.773.
 
+Advantages of using Random Forest:
+- handles multicollinearity better than linear regression,  because it randomly selects a subset of features for each tree node, making it unlikely that two correlated features will be selected for the same model.
+- perform well on large data sets with high dimensionality,
+- less prone to overfitting, than single decision tree,
+- can capture complex non-linear relationships,
+
+Disadvantages of using Random Forest:
+- computationally expensive for complex datasets.
+- harder to interpret compared to a single decision tree
+
 ### Feature Importance
 
 For every city we have calculated the feature importances based on the reduction in mean squared error (MSE) and by using the SHAP values that explain each feature's contribution to individual predictions and overall model behavior.
@@ -39,7 +49,7 @@ The **Most important** features based on the reduction in MSE: `global_radiation
 
 The **Least important** features based on the reduction in MSE: `precipitation`, `wind_gust`.
 
-**Detected relationships from the SHAP analysis and Counterfactual example:**
+### Detected relationships from the SHAP analysis and Counterfactual example:
 
 Sunshine levels decrease with increasing *cloud cover*. However, high *global radiation* values reduce the negative cloud cover impact. The places where we have high radiation, the cloud cover is lower and the sunshine levels are higher.
 
@@ -52,4 +62,5 @@ Random forest has detected the influence of *humidity* in cities such as Dresden
 In the city of Kassel, the relationship between the *wind speed* and *global radiation* is detected, with higher valus of radiation are associated with lower wind speed.
 
 Stockholm is the only city that is missing the global radiation feature. Most importance is placed on the *cloud_cover* and *temp_max*. The higher the maximum temperature, the more sunshine levels the city will have.
+
 
