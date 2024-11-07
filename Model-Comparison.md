@@ -1,6 +1,8 @@
 # Model Comparison
 The following sections present the training and evaluation of the Linear regression, CNN and Random Forest machine learning models. A comparison is provided, showcasing which models performed best, with additional insights derived from explainable AI techniques. These explanations help us interpret models decisions and performance differences.
 
+## Linear Regression
+
 ## Random Forest
 
 ### Training and Evaluation
