@@ -133,4 +133,46 @@ In the city of Kassel, the relationship between the *wind speed* and *global rad
 
 Stockholm is the only city that is missing the global radiation feature. Most importance is placed on the *cloud_cover* and *temp_max*. The higher the maximum temperature, the more sunshine levels the city will have.
 
+## CNN
 
+### Training and Evaluation
+
+A CNN model is trained and evaluated for each city. It predicts sunshine duration using a 80-20 train-test split. The hyperparameters where choosen by manual tuning them. The Conv1D layers have 64 and 32 filters with a kernel size of 3 and the dense layer was set to contain 32 units.
+
+The table below includes the cities with their corresponding **Train MSE** (Mean Squared Error from the training set), **Test MSE** (Mean Squared Error from the test set), and **Test R²** values.
+
+
+| City       | Train MSE | Test MSE | Test R² |
+|------------|--------|----------|---------|
+| BASEL      | 1.520  | 1.405    | 0.927   |
+| BUDAPEST   | 1.455  | 1.414    | 0.929   |
+| DEBILT     | 1.482  | 1.508    | 0.903   |
+| DRESDEN    | 1.702  | 1.925    | 0.906   |
+| DUSSELDORF | 1.154  | 1.120    | 0.939   |
+| HEATHROW   | 1.461  | 1.474    | 0.908   |
+| KASSEL     | 1.943  | 2.177    | 0.877   |
+| LJUBLJANA  | 1.297  | 1.380    | 0.933   |
+| MAASTRICHT | 1.436  | 1.359    | 0.921   |
+| MUENCHEN   | 1.073  | 0.970    | 0.956   |
+| OSLO       | 5.683  | 5.029    | 0.781   |
+| ROMA       | 1.612  | 1.498    | 0.907   |
+| SONNBLICK  | 2.751  | 3.155    | 0.846   |
+| STOCKHOLM  | 4.617  | 5.157    | 0.786   |
+
+Overall, the **best results** are obtained with the model for **MUENCHEN**, with the lowest Test MSE (0.970) and the highest Test R² (0.956).
+
+The model for **OSLO** and **STOCKHOLM** have the **worst results**, with the Test MSE of 5.029 and 5.157 and the Test R² of 0.781 and 0.786.
+
+### Feature Importance
+
+For every city we have calculated the feature importances by using the SHAP values that explain each feature's contribution to individual predictions and overall model behavior.
+
+The **Most important** features based on the SHAP values: `global_radiation`, `cloud_cover`. (Exceptions: KASSEL, where `global_radiation` and `temp_max` are pretty equally important, MUENCHEN, where 2nd most important feature is `temp_max`. For SONNBLICK the most important feature is `cloud_cover`, 2nd is `global_radiation`. And for STOCKHOLM, the most important feature is `temp_max`, followed by `cloud_cover` and `global_radiation` data is missing.)
+
+The **Least important** features based on the SHAP values: `pressure`, `precipitation`.
+
+### Detected relationships from the SHAP analysis and Counterfactual explanations using CNN:
+
+As described previously, *cloud_cover* and *global_radiation* contribute the most to the sunshine level of a city.
+
+For the counterfactual explanations we used 3 random samples for each city and checked how one of the most important features would have to change in order to gain 1h ouf sunshine duration. For example, to get from 4.64h on sunshine duration to 3.64h in DUSSELDORF, the *cloud_cover* would have to change from 3.0 to 4.13, with the other features beeing the same. Also, to get from 1.17h to 2.17h again in DUSSELDORF, the *global_radiation* would have to change from 0.43 to 1.0.
